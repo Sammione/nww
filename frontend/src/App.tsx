@@ -15,7 +15,8 @@ import {
     Plus,
     Monitor,
     Smartphone,
-    Info
+    Info,
+    Layout
 } from 'lucide-react';
 import axios from 'axios';
 
