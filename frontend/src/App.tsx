@@ -2,33 +2,44 @@ import React, { useState } from 'react';
 import {
     Video,
     Sparkles,
-    Type,
+    Wand2,
     Mic2,
-    Layers,
-    ChevronRight,
-    Play,
     Zap,
-    Loader2,
-    CheckCircle2,
+    Play,
     Download,
     ArrowRight,
-    Plus,
-    Monitor,
-    Smartphone,
-    Info,
-    Layout
+    Check,
+    Star,
+    TrendingUp,
+    Users,
+    Clock,
+    Menu,
+    X
 } from 'lucide-react';
 import axios from 'axios';
 
 const API_BASE = "http://localhost:8080";
 
 const TEMPLATES = [
-    { id: 'football', title: 'Football', icon: '⚽', color: 'from-green-500/20 to-emerald-500/20' },
-    { id: 'crypto', title: 'Crypto', icon: '₿', color: 'from-orange-500/20 to-yellow-500/20' },
-    { id: 'motivation', title: 'Motivation', icon: '🔥', color: 'from-red-500/20 to-orange-500/20' },
-    { id: 'business', title: 'Business', icon: '💼', color: 'from-blue-500/20 to-indigo-500/20' },
-    { id: 'relationship', title: 'Advice', icon: '❤️', color: 'from-pink-500/20 to-rose-500/20' },
-    { id: 'news', title: 'Gist/News', icon: '🗞️', color: 'from-purple-500/20 to-violet-500/20' },
+    { id: 'football', title: 'Sports', icon: '⚽', gradient: 'from-emerald-500 to-teal-500' },
+    { id: 'crypto', title: 'Finance', icon: '💰', gradient: 'from-amber-500 to-orange-500' },
+    { id: 'motivation', title: 'Motivation', icon: '🔥', gradient: 'from-rose-500 to-pink-500' },
+    { id: 'business', title: 'Business', icon: '💼', gradient: 'from-blue-500 to-indigo-500' },
+    { id: 'tech', title: 'Technology', icon: '🚀', gradient: 'from-purple-500 to-violet-500' },
+    { id: 'lifestyle', title: 'Lifestyle', icon: '✨', gradient: 'from-cyan-500 to-blue-500' },
+];
+
+const FEATURES = [
+    { icon: Wand2, title: 'AI Script Generation', description: 'Viral-optimized scripts in seconds' },
+    { icon: Mic2, title: 'Neural Voices', description: 'Ultra-realistic AI voiceovers' },
+    { icon: Sparkles, title: 'Auto B-Roll', description: 'AI-generated visuals' },
+    { icon: Zap, title: 'Instant Export', description: 'Ready-to-upload videos' },
+];
+
+const STATS = [
+    { value: '50K+', label: 'Videos Created' },
+    { value: '98%', label: 'Satisfaction Rate' },
+    { value: '24/7', label: 'AI Available' },
 ];
 
 function App() {
@@ -38,6 +49,7 @@ function App() {
     const [loading, setLoading] = useState(false);
     const [videoUrl, setVideoUrl] = useState<string | null>(null);
     const [status, setStatus] = useState('');
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const handleGenerate = async () => {
         if (!topic) return;
@@ -66,92 +78,141 @@ function App() {
     };
 
     return (
-        <div className="min-h-screen w-full bg-[#0A0A0B] text-slate-200">
-            {/* Dynamic Background Elements */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-                <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-brand-indigo/10 rounded-full blur-[150px] animate-pulse" />
-                <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-brand-purple/10 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: '2s' }} />
-                <div className="absolute top-[30%] left-[40%] w-[20%] h-[20%] bg-brand-cyan/5 rounded-full blur-[100px]" />
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+            {/* Animated Background */}
+            <div className="fixed inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+                <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
             </div>
 
-            {/* Header */}
-            <nav className="border-b border-white/5 bg-black/40 backdrop-blur-2xl sticky top-0 z-50">
-                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                    <div className="flex items-center gap-3 group cursor-pointer" onClick={() => window.location.reload()}>
-                        <div className="w-10 h-10 bg-gradient-to-br from-brand-indigo via-brand-purple to-brand-cyan rounded-xl flex items-center justify-center shadow-lg shadow-brand-indigo/20 group-hover:scale-105 transition-all">
-                            <Video className="w-6 h-6 text-white" />
+            {/* Navigation */}
+            <nav className="relative z-50 border-b border-white/10 bg-slate-900/50 backdrop-blur-xl">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between h-20">
+                        {/* Logo */}
+                        <div className="flex items-center gap-3 cursor-pointer group">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/50 group-hover:shadow-indigo-500/70 transition-all group-hover:scale-105">
+                                <Video className="w-6 h-6 text-white" />
+                            </div>
+                            <div>
+                                <h1 className="text-2xl font-bold tracking-tight">Clipora</h1>
+                                <p className="text-xs text-slate-400">by Hirena Studio</p>
+                            </div>
                         </div>
-                        <span className="text-2xl font-extrabold tracking-tight text-white font-outfit">Hirena <span className="text-brand-cyan">Studio</span></span>
-                    </div>
 
-                    <div className="hidden md:flex items-center gap-8">
-                        <a href="#" className="text-sm font-semibold text-slate-400 hover:text-white transition-colors">Features</a>
-                        <a href="#" className="text-sm font-semibold text-slate-400 hover:text-white transition-colors">Templates</a>
-                        <a href="#" className="text-sm font-semibold text-slate-400 hover:text-white transition-colors">Pricing</a>
-                        <div className="h-5 w-[1px] bg-white/10" />
-                        <button className="text-sm font-bold text-white hover:text-brand-cyan transition-colors">Log In</button>
-                        <button className="px-6 py-2.5 rounded-full bg-white text-black font-bold text-sm hover:bg-slate-200 transition-all shadow-xl shadow-white/5">
-                            Start Free Trial
+                        {/* Desktop Navigation */}
+                        <div className="hidden md:flex items-center gap-8">
+                            <a href="#features" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Features</a>
+                            <a href="#templates" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Templates</a>
+                            <a href="#pricing" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Pricing</a>
+                            <div className="h-6 w-px bg-white/10" />
+                            <button className="text-sm font-semibold text-white hover:text-indigo-400 transition-colors">Sign In</button>
+                            <button className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold text-sm hover:shadow-lg hover:shadow-indigo-500/50 transition-all hover:scale-105">
+                                Get Started
+                            </button>
+                        </div>
+
+                        {/* Mobile Menu Button */}
+                        <button
+                            className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        >
+                            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                         </button>
                     </div>
                 </div>
+
+                {/* Mobile Menu */}
+                {mobileMenuOpen && (
+                    <div className="md:hidden border-t border-white/10 bg-slate-900/95 backdrop-blur-xl">
+                        <div className="px-4 py-6 space-y-4">
+                            <a href="#features" className="block text-sm font-medium text-slate-300 hover:text-white transition-colors">Features</a>
+                            <a href="#templates" className="block text-sm font-medium text-slate-300 hover:text-white transition-colors">Templates</a>
+                            <a href="#pricing" className="block text-sm font-medium text-slate-300 hover:text-white transition-colors">Pricing</a>
+                            <div className="pt-4 space-y-3">
+                                <button className="w-full text-sm font-semibold text-white hover:text-indigo-400 transition-colors text-left">Sign In</button>
+                                <button className="w-full px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold text-sm">
+                                    Get Started
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </nav>
 
-            <main className="max-w-7xl mx-auto px-6 pt-20 pb-32">
+            <main className="relative z-10">
                 {/* Hero Section */}
-                <div className="max-w-4xl mx-auto text-center mb-24">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-indigo/10 border border-brand-indigo/20 text-brand-indigo text-xs font-bold uppercase tracking-widest mb-8">
-                        <Sparkles className="w-4 h-4" />
-                        The Future of Content Creation
-                    </div>
-                    <h1 className="text-6xl md:text-8xl font-extrabold text-white leading-[1.05] tracking-tight mb-8 font-outfit">
-                        AI Videos with <br />
-                        <span className="gradient-text">Zero Effort.</span>
-                    </h1>
-                    <p className="text-xl md:text-2xl text-slate-400 leading-relaxed max-w-2xl mx-auto">
-                        Clipora is the ultimate faceless video generator. Turn any idea into a viral masterpiece in seconds.
-                    </p>
-                </div>
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+                    <div className="text-center max-w-4xl mx-auto mb-16">
+                        {/* Badge */}
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-8 backdrop-blur-sm">
+                            <Sparkles className="w-4 h-4" />
+                            AI-Powered Video Creation
+                        </div>
 
-                {/* Generator Section */}
-                <div id="generator" className="grid lg:grid-cols-12 gap-8 items-start mb-32">
-                    {/* Controls */}
-                    <div className="lg:col-span-7 space-y-6">
-                        <div className="glass rounded-[2.5rem] p-10 border border-white/10 shadow-2xl relative overflow-hidden">
-                            <div className="absolute top-0 right-0 p-8 text-slate-500 opacity-20">
-                                <Plus className="w-12 h-12" />
-                            </div>
+                        {/* Headline */}
+                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight">
+                            Create Viral Videos
+                            <br />
+                            <span className="gradient-text">In Seconds</span>
+                        </h1>
 
-                            <div className="relative space-y-8">
-                                <div className="space-y-4">
-                                    <div className="flex items-center justify-between">
-                                        <label className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                                            <Type className="w-4 h-4" /> Video Topic
-                                        </label>
-                                        <span className="text-xs text-brand-indigo font-bold">{topic.length}/100</span>
-                                    </div>
-                                    <textarea
-                                        placeholder="Enter your idea (e.g., The best places to visit in Africa)..."
-                                        rows={3}
-                                        className="w-full bg-white/[0.03] border border-white/5 rounded-3xl px-6 py-6 focus:outline-none focus:border-brand-indigo/30 focus:bg-white/[0.05] transition-all text-xl text-white placeholder:text-slate-600 resize-none"
-                                        value={topic}
-                                        onChange={(e) => setTopic(e.target.value.slice(0, 100))}
-                                    />
+                        {/* Subheadline */}
+                        <p className="text-xl sm:text-2xl text-slate-400 mb-8 leading-relaxed max-w-3xl mx-auto">
+                            Transform any idea into professional faceless videos with AI-powered scripts, voiceovers, and visuals.
+                        </p>
+
+                        {/* Stats */}
+                        <div className="flex flex-wrap justify-center gap-8 mb-12">
+                            {STATS.map((stat, index) => (
+                                <div key={index} className="text-center">
+                                    <div className="text-3xl font-bold gradient-text mb-1">{stat.value}</div>
+                                    <div className="text-sm text-slate-400">{stat.label}</div>
                                 </div>
+                            ))}
+                        </div>
+                    </div>
 
-                                <div className="grid md:grid-cols-2 gap-8">
-                                    <div className="space-y-4">
-                                        <label className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                                            <Mic2 className="w-4 h-4" /> Narrative Tone
+                    {/* Main Generator Section */}
+                    <div className="grid lg:grid-cols-2 gap-8 items-start mb-20">
+                        {/* Left: Controls */}
+                        <div className="space-y-6">
+                            {/* Main Control Panel */}
+                            <div className="glass rounded-3xl p-8 border border-white/10 shadow-2xl">
+                                <div className="space-y-6">
+                                    {/* Topic Input */}
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-300 mb-3 flex items-center justify-between">
+                                            <span className="flex items-center gap-2">
+                                                <Wand2 className="w-4 h-4 text-indigo-400" />
+                                                Video Topic
+                                            </span>
+                                            <span className="text-xs text-slate-500">{topic.length}/100</span>
+                                        </label>
+                                        <textarea
+                                            placeholder="e.g., Top 5 productivity hacks for entrepreneurs..."
+                                            rows={3}
+                                            className="w-full input-modern resize-none text-lg"
+                                            value={topic}
+                                            onChange={(e) => setTopic(e.target.value.slice(0, 100))}
+                                        />
+                                    </div>
+
+                                    {/* Tone Selection */}
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                                            <Mic2 className="w-4 h-4 text-teal-400" />
+                                            Narrative Tone
                                         </label>
                                         <div className="grid grid-cols-2 gap-3">
-                                            {['Motivational', 'Dramatic', 'Funny', 'Educational'].map((t) => (
+                                            {['Motivational', 'Dramatic', 'Casual', 'Professional'].map((t) => (
                                                 <button
                                                     key={t}
                                                     onClick={() => setTone(t.toLowerCase())}
-                                                    className={`px-4 py-4 rounded-2xl text-sm font-bold transition-all border ${tone === t.toLowerCase()
-                                                        ? 'bg-brand-indigo text-white border-brand-indigo shadow-lg shadow-brand-indigo/20'
-                                                        : 'bg-white/5 text-slate-400 border-white/5 hover:bg-white/10'
+                                                    className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all border ${tone === t.toLowerCase()
+                                                            ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-transparent shadow-lg shadow-indigo-500/30'
+                                                            : 'bg-white/5 text-slate-300 border-white/10 hover:bg-white/10'
                                                         }`}
                                                 >
                                                     {t}
@@ -160,18 +221,20 @@ function App() {
                                         </div>
                                     </div>
 
-                                    <div className="space-y-4">
-                                        <label className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                                            <Smartphone className="w-4 h-4" /> Target Platform
+                                    {/* Platform Selection */}
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                                            <Video className="w-4 h-4 text-purple-400" />
+                                            Target Platform
                                         </label>
-                                        <div className="grid grid-cols-2 gap-3">
+                                        <div className="grid grid-cols-3 gap-3">
                                             {['TikTok', 'Shorts', 'Reels'].map((p) => (
                                                 <button
                                                     key={p}
                                                     onClick={() => setPlatform(p)}
-                                                    className={`px-4 py-4 rounded-2xl text-sm font-bold transition-all border ${platform === p
-                                                        ? 'bg-brand-cyan text-white border-brand-cyan shadow-lg shadow-brand-cyan/20'
-                                                        : 'bg-white/5 text-slate-400 border-white/5 hover:bg-white/10'
+                                                    className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all border ${platform === p
+                                                            ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white border-transparent shadow-lg shadow-teal-500/30'
+                                                            : 'bg-white/5 text-slate-300 border-white/10 hover:bg-white/10'
                                                         }`}
                                                 >
                                                     {p}
@@ -179,126 +242,134 @@ function App() {
                                             ))}
                                         </div>
                                     </div>
-                                </div>
 
-                                <button
-                                    onClick={handleGenerate}
-                                    disabled={!topic || loading}
-                                    className="w-full py-6 rounded-3xl bg-gradient-to-r from-brand-indigo via-brand-purple to-brand-cyan text-white font-extrabold text-2xl hover:scale-[1.01] active:scale-[0.99] transition-all shadow-2xl shadow-brand-indigo/40 flex items-center justify-center gap-4 disabled:opacity-30 disabled:cursor-not-allowed group relative overflow-hidden"
-                                >
-                                    <div className="absolute inset-0 bg-white/20 translate-y-full hover:translate-y-0 transition-transform duration-500" />
-                                    <Zap className="w-8 h-8 fill-current text-white group-hover:rotate-12 transition-transform" />
-                                    Generate Video
-                                    <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Quick Templates Block */}
-                        <div className="glass rounded-[2rem] p-10 border border-white/5">
-                            <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2">
-                                <Layout className="w-5 h-5 text-brand-cyan" /> Quick Templates
-                            </h3>
-                            <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
-                                {TEMPLATES.map((t) => (
+                                    {/* Generate Button */}
                                     <button
-                                        key={t.id}
-                                        onClick={() => setTopic(`${t.title} news today...`)}
-                                        className={`flex flex-col items-center gap-3 p-4 rounded-2xl border border-white/5 hover:bg-white/5 transition-all group`}
+                                        onClick={handleGenerate}
+                                        disabled={!topic || loading}
+                                        className="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-600 text-white font-bold text-lg hover:shadow-2xl hover:shadow-indigo-500/50 transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-3 group relative overflow-hidden"
                                     >
-                                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${t.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform`}>
-                                            {t.icon}
-                                        </div>
-                                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.title}</span>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        <Zap className="w-6 h-6 relative z-10" />
+                                        <span className="relative z-10">Generate Video</span>
+                                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
                                     </button>
-                                ))}
+                                </div>
+                            </div>
+
+                            {/* Quick Templates */}
+                            <div id="templates" className="glass rounded-3xl p-6 border border-white/10">
+                                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                                    <Star className="w-5 h-5 text-amber-400" />
+                                    Quick Templates
+                                </h3>
+                                <div className="grid grid-cols-3 gap-3">
+                                    {TEMPLATES.map((template) => (
+                                        <button
+                                            key={template.id}
+                                            onClick={() => setTopic(`${template.title} content ideas...`)}
+                                            className="group flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all hover:scale-105"
+                                        >
+                                            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${template.gradient} flex items-center justify-center text-2xl shadow-lg group-hover:shadow-xl transition-shadow`}>
+                                                {template.icon}
+                                            </div>
+                                            <span className="text-xs font-semibold text-slate-300">{template.title}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right: Preview */}
+                        <div className="lg:sticky lg:top-24">
+                            <div className="glass rounded-3xl p-6 border border-white/10 shadow-2xl aspect-[9/16] max-w-md mx-auto bg-slate-900/50 flex flex-col items-center justify-center relative overflow-hidden">
+                                {loading ? (
+                                    <div className="text-center px-8">
+                                        <div className="relative mb-8">
+                                            <div className="w-24 h-24 rounded-full border-4 border-indigo-500/20 border-t-indigo-500 animate-spin" />
+                                            <Sparkles className="absolute inset-0 m-auto w-10 h-10 text-indigo-400 animate-pulse" />
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-white mb-3">Creating Magic...</h3>
+                                        <p className="text-slate-400 font-medium">{status}</p>
+                                    </div>
+                                ) : videoUrl ? (
+                                    <div className="w-full h-full relative group">
+                                        <video
+                                            src={videoUrl}
+                                            controls
+                                            autoPlay
+                                            loop
+                                            className="w-full h-full object-cover rounded-2xl"
+                                        />
+                                        <div className="absolute top-4 left-4 right-4 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                onClick={() => setVideoUrl(null)}
+                                                className="flex-1 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white font-semibold text-sm hover:bg-white/20 transition-all"
+                                            >
+                                                New Video
+                                            </button>
+                                            <a
+                                                href={videoUrl}
+                                                download
+                                                className="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl text-white shadow-xl hover:shadow-2xl hover:scale-110 transition-all"
+                                            >
+                                                <Download className="w-6 h-6" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="text-center px-8">
+                                        <div className="w-20 h-20 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/10">
+                                            <Play className="w-10 h-10 text-slate-500" />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-slate-400 mb-3">Your Video Preview</h3>
+                                        <p className="text-slate-500 text-sm">Configure your settings and hit generate to see your video here</p>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
 
-                    {/* Preview Panel */}
-                    <div className="lg:col-span-5 sticky top-32">
-                        <div className="glass rounded-[3rem] p-4 border border-white/10 shadow-2xl aspect-[9/16] relative bg-black/40 overflow-hidden flex flex-col items-center justify-center">
-                            {loading ? (
-                                <div className="flex flex-col items-center text-center px-10">
-                                    <div className="relative mb-8">
-                                        <div className="w-24 h-24 rounded-full border-4 border-brand-indigo/20 border-t-brand-indigo animate-spin" />
-                                        <Sparkles className="absolute inset-0 m-auto w-8 h-8 text-brand-cyan animate-pulse" />
-                                    </div>
-                                    <h3 className="text-3xl font-bold text-white mb-3 font-outfit">Magic in Progress...</h3>
-                                    <p className="text-slate-400 font-medium leading-relaxed">{status}</p>
-                                </div>
-                            ) : videoUrl ? (
-                                <div className="w-full h-full relative group">
-                                    <video
-                                        src={videoUrl}
-                                        controls
-                                        autoPlay
-                                        loop
-                                        className="w-full h-full object-cover rounded-[2.5rem]"
-                                    />
-                                    <div className="absolute top-6 left-6 right-6 flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button
-                                            onClick={() => setVideoUrl(null)}
-                                            className="flex-1 py-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl text-white font-bold text-sm hover:bg-white/20 transition-all"
-                                        >
-                                            New Draft
-                                        </button>
-                                        <a
-                                            href={videoUrl}
-                                            download
-                                            className="p-4 bg-brand-cyan rounded-2xl text-white shadow-xl shadow-brand-cyan/20 hover:scale-110 transition-all"
-                                        >
-                                            <Download className="w-6 h-6" />
-                                        </a>
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="text-center px-12">
-                                    <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-white/5">
-                                        <Play className="w-8 h-8 text-slate-600 fill-current" />
-                                    </div>
-                                    <h3 className="text-2xl font-bold text-slate-500 mb-4 font-outfit italic">Preview your masterpiece</h3>
-                                    <p className="text-slate-600 text-sm">Once configuration is set, your vertical video will appear here in high definition.</p>
-                                </div>
-                            )}
+                    {/* Features Section */}
+                    <section id="features" className="mb-20">
+                        <div className="text-center mb-12">
+                            <h2 className="text-4xl font-bold mb-4">Powerful Features</h2>
+                            <p className="text-xl text-slate-400">Everything you need to create viral content</p>
                         </div>
-                    </div>
-                </div>
-
-                {/* Features Bento Grid */}
-                <div className="grid md:grid-cols-3 gap-8">
-                    <div className="glass p-12 rounded-[2.5rem] md:col-span-2 relative overflow-hidden group border-brand-indigo/10 hover:border-brand-indigo/30 transition-all">
-                        <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-brand-indigo/5 rounded-full blur-3xl" />
-                        <Sparkles className="w-12 h-12 text-brand-indigo mb-8" />
-                        <h3 className="text-4xl font-bold text-white mb-4 font-outfit">AI Script Mastery</h3>
-                        <p className="text-slate-400 text-xl leading-relaxed max-w-lg italic">
-                            "We analyze over 100,000 viral shorts every week to ensure your scripts are biologically programmed for retention."
-                        </p>
-                    </div>
-                    <div className="glass p-12 rounded-[2.5rem] border-brand-cyan/10 hover:border-brand-cyan/30 transition-all">
-                        <Mic2 className="w-10 h-10 text-brand-cyan mb-8" />
-                        <h3 className="text-3xl font-bold text-white mb-4 font-outfit">Neural Voices</h3>
-                        <p className="text-slate-400 text-lg leading-relaxed">
-                            Ultra-realistic human voices with local accent options for maximum relatability.
-                        </p>
-                    </div>
-                </div>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {FEATURES.map((feature, index) => (
+                                <div key={index} className="glass rounded-2xl p-6 border border-white/10 hover:border-indigo-500/30 transition-all card-hover">
+                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/30">
+                                        <feature.icon className="w-6 h-6 text-white" />
+                                    </div>
+                                    <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+                                    <p className="text-slate-400 text-sm">{feature.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </section>
             </main>
 
             {/* Footer */}
-            <footer className="border-t border-white/5 bg-black/40 py-20">
-                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-10">
-                    <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center">
-                            <Video className="w-4 h-4 text-slate-400" />
+            <footer className="relative z-10 border-t border-white/10 bg-slate-900/50 backdrop-blur-xl py-12">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                                <Video className="w-5 h-5 text-white" />
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-bold">Clipora</h3>
+                                <p className="text-xs text-slate-400">by Hirena Studio</p>
+                            </div>
                         </div>
-                        <span className="text-xl font-bold text-white font-outfit">Hirena <span className="text-brand-cyan">Studio</span></span>
-                    </div>
-                    <p className="text-slate-500 text-sm">© 2026 Hirena Studio. Built for the next generation of African creators.</p>
-                    <div className="flex items-center gap-6">
-                        <a href="#" className="text-slate-400 hover:text-white transition-colors"><Info className="w-5 h-5" /></a>
-                        <a href="#" className="px-6 py-2 rounded-full border border-white/10 text-white font-bold text-sm hover:bg-white/5 transition-all">Support</a>
+                        <p className="text-slate-400 text-sm">© 2026 Hirena Studio. Empowering African creators.</p>
+                        <div className="flex items-center gap-4">
+                            <a href="#" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Privacy</a>
+                            <a href="#" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Terms</a>
+                            <a href="#" className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Support</a>
+                        </div>
                     </div>
                 </div>
             </footer>
