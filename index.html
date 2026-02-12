@@ -1,16 +1,307 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hirena Studio | AI Faceless Video Generator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clipora - AI Video Generator | Hirena Studio</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap"
+    rel="stylesheet">
 </head>
 
-<body class="bg-[#0A0A0B] text-white">
-  <div id="root"></div>
-  <script type="module" src="/frontend/src/main.tsx"></script>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-content">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="23 7 16 12 23 17 23 7"></polygon>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <h1>Clipora</h1>
+            <p>by Hirena Studio</p>
+          </div>
+        </div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#" class="nav-btn">Sign In</a>
+          <button class="btn-primary">Get Started</button>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#">Sign In</a>
+    <button class="btn-primary">Get Started</button>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z">
+            </path>
+          </svg>
+          AI-Powered Video Creation
+        </div>
+        <h1 class="hero-title">
+          Create Viral Videos<br>
+          <span class="gradient-text">In Seconds</span>
+        </h1>
+        <p class="hero-subtitle">
+          Transform any idea into professional faceless videos with AI-powered scripts, voiceovers, and visuals.
+        </p>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value">50K+</div>
+            <div class="stat-label">Videos Created</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">98%</div>
+            <div class="stat-label">Satisfaction</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">24/7</div>
+            <div class="stat-label">AI Available</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Generator Section -->
+  <section class="generator">
+    <div class="container">
+      <div class="generator-grid">
+        <!-- Controls -->
+        <div class="controls">
+          <div class="card">
+            <div class="form-group">
+              <label>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z">
+                  </path>
+                </svg>
+                Video Topic
+                <span class="char-count" id="charCount">0/100</span>
+              </label>
+              <textarea id="topicInput" placeholder="e.g., Top 5 productivity hacks for entrepreneurs..."
+                maxlength="100" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+                Narrative Tone
+              </label>
+              <div class="button-grid">
+                <button class="option-btn active" data-tone="motivational">Motivational</button>
+                <button class="option-btn" data-tone="dramatic">Dramatic</button>
+                <button class="option-btn" data-tone="casual">Casual</button>
+                <button class="option-btn" data-tone="professional">Professional</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                </svg>
+                Target Platform
+              </label>
+              <div class="button-grid platform-grid">
+                <button class="option-btn platform-btn active" data-platform="TikTok">TikTok</button>
+                <button class="option-btn platform-btn" data-platform="Shorts">Shorts</button>
+                <button class="option-btn platform-btn" data-platform="Reels">Reels</button>
+              </div>
+            </div>
+
+            <button class="generate-btn" id="generateBtn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              Generate Video
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Templates -->
+          <div class="card templates-card">
+            <h3>Quick Start Templates</h3>
+            <div class="templates-grid">
+              <button class="template-btn" data-template="Sports">
+                <span class="template-icon">⚽</span>
+                <span class="template-label">Sports</span>
+              </button>
+              <button class="template-btn" data-template="Finance">
+                <span class="template-icon">💰</span>
+                <span class="template-label">Finance</span>
+              </button>
+              <button class="template-btn" data-template="Motivation">
+                <span class="template-icon">🔥</span>
+                <span class="template-label">Motivation</span>
+              </button>
+              <button class="template-btn" data-template="Business">
+                <span class="template-icon">💼</span>
+                <span class="template-label">Business</span>
+              </button>
+              <button class="template-btn" data-template="Tech">
+                <span class="template-icon">🚀</span>
+                <span class="template-label">Tech</span>
+              </button>
+              <button class="template-btn" data-template="Lifestyle">
+                <span class="template-icon">✨</span>
+                <span class="template-label">Lifestyle</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview-container">
+          <div class="preview-card" id="previewCard">
+            <div class="preview-empty" id="previewEmpty">
+              <div class="preview-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </div>
+              <h3>Your Video Preview</h3>
+              <p>Configure settings and generate to see your video</p>
+            </div>
+            <div class="preview-loading" id="previewLoading" style="display: none;">
+              <div class="spinner"></div>
+              <h3>Creating Magic...</h3>
+              <p id="loadingStatus">Crafting your viral script...</p>
+            </div>
+            <div class="preview-video" id="previewVideo" style="display: none;">
+              <video id="videoPlayer" controls autoplay loop></video>
+              <div class="video-controls">
+                <button class="video-control-btn" id="newVideoBtn">New Video</button>
+                <button class="video-control-btn download-btn" id="downloadBtn">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Powerful Features</h2>
+        <p>Everything you need to create viral content</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z">
+              </path>
+            </svg>
+          </div>
+          <h3>AI Script Generation</h3>
+          <p>Viral-optimized scripts in seconds</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            </svg>
+          </div>
+          <h3>Neural Voices</h3>
+          <p>Realistic AI voiceovers</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="10 8 16 12 10 16 10 8"></polygon>
+            </svg>
+          </div>
+          <h3>Auto B-Roll</h3>
+          <p>AI-generated visuals</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+          <h3>Instant Export</h3>
+          <p>Ready-to-upload videos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <div class="logo-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="23 7 16 12 23 17 23 7"></polygon>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <h3>Clipora</h3>
+            <p>by Hirena Studio</p>
+          </div>
+        </div>
+        <p class="footer-text">© 2026 Hirena Studio. Empowering African creators.</p>
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 
 </html>
